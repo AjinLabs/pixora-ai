@@ -267,3 +267,4 @@ export default function AlbumDetailClient({ albumId }: { albumId: string }) {
     </AppShell>
   );
 }
+

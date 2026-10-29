@@ -3,10 +3,20 @@ import fs from 'fs';
 import path from 'path';
 
 const { Client } = pg;
-const encodedPassword = encodeURIComponent('VnbPass@2026#HMm');
+
+const connectionString =
+  process.env.DATABASE_URL ||
+  'postgresql://postgres:YOUR_PASSWORD@db.izczqhevfwmggjggckre.supabase.co:5432/postgres';
+
+if (!process.env.DATABASE_URL && connectionString.includes('YOUR_PASSWORD')) {
+  console.log('Notice: Set DATABASE_URL in your environment to execute migrations against your Supabase database.');
+  console.log('Example: DATABASE_URL="postgresql://postgres:YOUR_PASSWORD@db.izczqhevfwmggjggckre.supabase.co:5432/postgres" node scripts/migrate.mjs');
+  process.exit(0);
+}
+
 const client = new Client({
-  connectionString: `postgresql://postgres:${encodedPassword}@db.izczqhevfwmggjggckre.supabase.co:5432/postgres`,
-  ssl: { rejectUnauthorized: false }
+  connectionString,
+  ssl: { rejectUnauthorized: false },
 });
 
 async function runMigrations() {
@@ -14,7 +24,10 @@ async function runMigrations() {
     await client.connect();
     console.log('Connected to database. Running schema migration...');
 
-    const schemaSql = fs.readFileSync(path.join(process.cwd(), 'supabase/migrations/20261029000000_initial_schema.sql'), 'utf-8');
+    const schemaSql = fs.readFileSync(
+      path.join(process.cwd(), 'supabase/migrations/20261029000000_initial_schema.sql'),
+      'utf-8'
+    );
     await client.query(schemaSql);
     console.log('Schema migration completed successfully!');
 
@@ -26,7 +39,7 @@ async function runMigrations() {
         ON CONFLICT (id) DO UPDATE SET public = true;
       `);
       console.log('Storage bucket "photos" ensured!');
-      
+
       // Storage policies
       await client.query(`
         DO $$
@@ -46,7 +59,7 @@ async function runMigrations() {
       `);
       console.log('Storage policies configured!');
     } catch (storageErr) {
-      console.warn('Storage bucket query notice (can be configured via Supabase dashboard if schema isolated):', storageErr.message);
+      console.warn('Storage bucket query notice:', storageErr.message);
     }
 
     const check = await client.query(`
@@ -55,14 +68,13 @@ async function runMigrations() {
       WHERE table_schema = 'public'
       ORDER BY table_name;
     `);
-    console.log('Tables created in public schema:', check.rows.map(r => r.table_name));
+    console.log('Tables created in public schema:', check.rows.map((r) => r.table_name));
 
     await client.end();
   } catch (err) {
-    console.error('Migration failed:', err);
+    console.error('Migration failed:', err.message);
     process.exit(1);
   }
 }
 
 runMigrations();
-
