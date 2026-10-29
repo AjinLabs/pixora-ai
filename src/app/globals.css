@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FCFAFF;
+  --foreground: #241735;
+  
+  --card: #FFFFFF;
+  --card-foreground: #241735;
+  
+  --popover: #FFFFFF;
+  --popover-foreground: #241735;
+  
+  --primary: #9333EA;
+  --primary-foreground: #FFFFFF;
+  
+  --secondary: #F5EEFF;
+  --secondary-foreground: #6D28D9;
+  
+  --muted: #F5EEFF;
+  --muted-foreground: #7A6A88;
+  
+  --accent: #FFF0F7;
+  --accent-foreground: #EC4899;
+  
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+  
+  --border: #E9DDF7;
+  --input: #E9DDF7;
+  --ring: #9333EA;
+
+  --radius: 0.85rem;
+
+  --pixora-white: #ffffff;
+  --pixora-bg: #FCFAFF;
+  --pixora-lavender: #F5EEFF;
+  --pixora-border: #E9DDF7;
+  --pixora-pink-light: #FFF0F7;
+  --pixora-purple: #9333EA;
+  --pixora-purple-deep: #6D28D9;
+  --pixora-pink: #EC4899;
+  --pixora-pink-rose: #F472B6;
+  --pixora-text: #241735;
+  --pixora-secondary: #7A6A88;
+  --pixora-muted: #A398AF;
+}
+
+.dark {
+  --background: #0F091A;
+  --foreground: #F8F5FE;
+  
+  --card: #181126;
+  --card-foreground: #F8F5FE;
+  
+  --popover: #181126;
+  --popover-foreground: #F8F5FE;
+  
+  --primary: #C084FC;
+  --primary-foreground: #181126;
+  
+  --secondary: #24163B;
+  --secondary-foreground: #E9DDF7;
+  
+  --muted: #24163B;
+  --muted-foreground: #9588A6;
+  
+  --accent: #2B152F;
+  --accent-foreground: #F472B6;
+  
+  --destructive: #F87171;
+  --destructive-foreground: #FFFFFF;
+  
+  --border: #2D1E4B;
+  --input: #2D1E4B;
+  --ring: #C084FC;
+
+  --pixora-white: #171024;
+  --pixora-bg: #0F091A;
+  --pixora-lavender: #1E1333;
+  --pixora-border: #2D1E4B;
+  --pixora-pink-light: #2A142A;
+  --pixora-text: #F8F5FE;
+  --pixora-secondary: #C8BFD7;
+  --pixora-muted: #9588A6;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar for sleek creative workspace look */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #E9DDF7;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D8B4FE;
+}
+
+/* Glass & Glow utilities */
+.pixora-glass {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid #E9DDF7;
+}
+
+.dark .pixora-glass {
+  background: rgba(24, 17, 38, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid #2D1E4B;
+}
+
+.pixora-gradient-text {
+  background: linear-gradient(135deg, #EC4899 0%, #9333EA 50%, #6D28D9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.pixora-gradient-primary {
+  background: linear-gradient(135deg, #EC4899 0%, #9333EA 100%);
+}
+
+.pixora-gradient-subtle {
+  background: linear-gradient(135deg, #FFF0F7 0%, #F5EEFF 100%);
+}
+
+.pixora-card-shadow {
+  box-shadow: 0 4px 20px -2px rgba(147, 51, 234, 0.06), 0 2px 8px -2px rgba(236, 72, 153, 0.04);
+}
+
+.pixora-card-hover {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pixora-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -4px rgba(147, 51, 234, 0.12), 0 4px 12px -2px rgba(236, 72, 153, 0.08);
+}
